@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 
-import java.io.File;
+import java.nio.file.Paths;
 
 public class DirTestWatcherTest {
   @Rule
@@ -13,14 +13,12 @@ public class DirTestWatcherTest {
   @Test
   public void simpleTest() {
     Assert.assertTrue(
-      new File(String.format("target/%s/%s", DirTestWatcherTest.class.getCanonicalName(), "simpleTest")).
-        exists());
+      Paths.get("target", DirTestWatcherTest.class.getCanonicalName(), "simpleTest").toFile().exists());
   }
 
   @Test
   public void simpleTest1() {
     Assert.assertFalse(
-      new File(String.format("target/%s/%s", DirTestWatcherTest.class.getCanonicalName(), "simpleTest")).
-        exists());
+      Paths.get("target", DirTestWatcherTest.class.getCanonicalName(), "simpleTest").toFile().exists());
   }
 }

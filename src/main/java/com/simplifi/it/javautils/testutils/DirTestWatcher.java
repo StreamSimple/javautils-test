@@ -6,16 +6,19 @@ import org.junit.runner.Description;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 public class DirTestWatcher extends TestWatcher {
   private String dirPath;
+  private File dir;
   
   @Override
   protected void starting(Description description) {
     String methodName = description.getMethodName();
     String className = description.getClassName();
-    this.dirPath = (new File(".").getAbsolutePath()) + "/target/" + className + "/" + methodName;
-    new File(dirPath).mkdirs();
+    dir = Paths.get(".", "target", className, methodName).toFile();
+    dirPath = dir.getAbsolutePath();
+    dir.mkdirs();
   }
 
   @Override
@@ -36,11 +39,17 @@ public class DirTestWatcher extends TestWatcher {
     }
   }
 
+  public File makeSubDir(String subDirName) {
+    File subDir = new File(dir, subDirName);
+    subDir.mkdirs();
+    return subDir;
+  }
+
   public String getDirPath() {
     return dirPath;
   }
 
   public File getDir() {
-    return new File(dirPath);
+    return dir;
   }
 }
