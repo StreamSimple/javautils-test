@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 
 public class DirTestWatcherTest {
   @Rule
-  public DirTestWatcher dirTestWatcher = new DirTestWatcher();
+  public DirTestWatcher dirTestWatcher = new DirTestWatcher.Builder().build();
 
   @Test
   public void simpleTest() {

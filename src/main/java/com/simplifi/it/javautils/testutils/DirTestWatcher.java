@@ -11,31 +11,52 @@ import java.nio.file.Paths;
 public class DirTestWatcher extends TestWatcher {
   private String dirPath;
   private File dir;
-  
+  private boolean deleteAtEnd = false;
+
+  @Deprecated
+  public DirTestWatcher()
+  {
+  }
+
+  protected DirTestWatcher(final boolean deleteAtEnd)
+  {
+    this.deleteAtEnd = deleteAtEnd;
+  }
+
   @Override
   protected void starting(Description description) {
     String methodName = description.getMethodName();
     String className = description.getClassName();
     dir = Paths.get(".", "target", className, methodName).toFile();
     dirPath = dir.getAbsolutePath();
+
+    deleteDir();
     dir.mkdirs();
   }
 
   @Override
   protected void finished(Description description) {
-    try {
-      FileUtils.deleteDirectory(getDir());
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    deleteDirEnd();
   }
 
   @Override
   protected void failed(Throwable e, Description description) {
+    deleteDirEnd();
+  }
+
+  private void deleteDir()
+  {
     try {
-      FileUtils.deleteDirectory(getDir());
+      FileUtils.deleteDirectory(dir);
     } catch (IOException ex) {
       // Just swallow
+    }
+  }
+
+  private void deleteDirEnd()
+  {
+    if (deleteAtEnd) {
+      deleteDir();
     }
   }
 
@@ -45,11 +66,32 @@ public class DirTestWatcher extends TestWatcher {
     return subDir;
   }
 
+  @Deprecated
   public String getDirPath() {
     return dirPath;
   }
 
   public File getDir() {
     return dir;
+  }
+
+  public static class Builder
+  {
+    private boolean deleteAtEnd = true;
+
+    public Builder()
+    {
+    }
+
+    public Builder setDeleteAtEnd(final boolean deleteAtEnd)
+    {
+      this.deleteAtEnd = deleteAtEnd;
+      return this;
+    }
+
+    public DirTestWatcher build()
+    {
+      return new DirTestWatcher(deleteAtEnd);
+    }
   }
 }
