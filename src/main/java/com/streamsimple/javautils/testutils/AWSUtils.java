@@ -1,4 +1,4 @@
-package com.simplifi.it.javautils.testutils;
+package com.streamsimple.javautils.testutils;
 
 /**
  * This class is used to retrieve environmental variables with AWS credentials.

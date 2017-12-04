@@ -1,4 +1,4 @@
-package com.simplifi.it.javautils.testutils;
+package com.streamsimple.javautils.testutils;
 
 import java.io.File;
 import java.net.URI;

@@ -1,4 +1,4 @@
-package com.simplifi.it.javautils.testutils;
+package com.streamsimple.javautils.testutils;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.rules.TestWatcher;
