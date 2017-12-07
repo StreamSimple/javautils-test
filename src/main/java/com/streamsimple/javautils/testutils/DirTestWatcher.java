@@ -1,6 +1,6 @@
 package com.streamsimple.javautils.testutils;
 
-import org.apache.commons.io.FileUtils;
+import com.streamsimple.commons.io.FileUtils;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
