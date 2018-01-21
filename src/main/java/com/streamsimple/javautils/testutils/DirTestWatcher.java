@@ -19,6 +19,7 @@ package com.streamsimple.javautils.testutils;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.junit.rules.TestWatcher;
@@ -82,9 +83,17 @@ public class DirTestWatcher extends TestWatcher
     }
   }
 
+  @Deprecated
   public File makeSubDir(String subDirName)
   {
-    File subDir = new File(dir, subDirName);
+    final File subDir = new File(dir, subDirName);
+    subDir.mkdirs();
+    return subDir;
+  }
+
+  public File makeSubDir(Path subDirPath)
+  {
+    final File subDir = dir.toPath().resolve(subDirPath).toFile();
     subDir.mkdirs();
     return subDir;
   }
