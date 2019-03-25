@@ -17,6 +17,8 @@
  */
 package com.streamsimple.javautils.testutils;
 
+import com.streamsimple.commons.io.FileUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -24,8 +26,6 @@ import java.nio.file.Paths;
 
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
-
-import com.streamsimple.commons.io.FileUtils;
 
 public class DirTestWatcher extends TestWatcher
 {
