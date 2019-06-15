@@ -18,39 +18,17 @@
 package com.streamsimple.javautils.testutils;
 
 import java.io.File;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
+import org.junit.Assert;
+import org.junit.Test;
 
-public final class ResourceUtils
+public class ResourceUtilsTest
 {
-  private static final Path ROOT_PATH = Paths.get("/");
-
-  private ResourceUtils()
+  @Test
+  public void simpleResourceAsFileTest()
   {
-  }
-
-  public static File getResourceAsFile(final Path resourcePath)
-  {
-    if (resourcePath.isAbsolute()) {
-      final String message = String.format("The given path [%s] is absolute, paths must be relative to " +
-          "where resources are stored.", resourcePath);
-      throw new IllegalArgumentException(message);
-    }
-
-    final String resourcePathString = ROOT_PATH
-        .resolve(resourcePath)
-        .toString();
-
-    try {
-      final URI resourceURI = ResourceUtils.class
-          .getResource(resourcePathString)
-          .toURI();
-      return new File(resourceURI);
-    } catch (URISyntaxException e) {
-      // This should never happen
-      throw new RuntimeException(e);
-    }
+    final String fileName = "test.txt";
+    final File file = ResourceUtils.getResourceAsFile(Paths.get(fileName));
+    Assert.assertTrue(file.getAbsolutePath().endsWith(fileName));
   }
 }
